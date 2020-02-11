@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.app.schoolmanagementteacher.notice.NoticeViewmodel" />
+            type="com.app.schoolmanagementstudent.notice.NoticeViewmodel" />
     </data>
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"

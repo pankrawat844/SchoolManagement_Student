@@ -3,7 +3,7 @@
     <data>
         <variable
             name="data"
-            type="com.app.schoolmanagementteacher.response.UpcomingTestList.Response" />
+            type="com.app.schoolmanagementstudent.response.UpcomingTestList.Response" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout

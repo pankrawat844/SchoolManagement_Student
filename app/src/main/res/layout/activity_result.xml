@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.app.schoolmanagementteacher.result.ResultViewmodel" />
+            type="com.app.schoolmanagementstudent.result.ResultViewmodel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

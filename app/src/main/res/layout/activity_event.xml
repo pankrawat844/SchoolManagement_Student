@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.app.schoolmanagementteacher.event.EventViewmodel" />
+            type="com.app.schoolmanagementstudent.event.EventViewmodel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
