@@ -49,9 +49,9 @@ class StudentListActivity : AppCompatActivity(), KodeinAware, AttendenceListener
         viewmodel.attedenceListener = this
         CoroutineScope(Dispatchers.Main).launch {
             viewmodel.check_attendence(
-                intent.getStringExtra("date"),
-                sharedPreferences.getString("class_name", "")!!,
-                sharedPreferences.getString("section_name", "")!!
+                intent.getStringExtra("date")!!
+//                sharedPreferences.getString("class_name", "")!!,
+//                sharedPreferences.getString("section_name", "")!!
             )
         }
 
@@ -97,17 +97,17 @@ class StudentListActivity : AppCompatActivity(), KodeinAware, AttendenceListener
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onAllStudentSuccess(data: StudentList) {
         progress_bar.hide()
-        if (attendenceData?.response != null) {
-
-            for (i in 0 until attendenceData?.response!!.size) {
-                val jsonObject = attendenceData?.response!![i]
-                for (j in data.response!!) {
-                    if (jsonObject?.rollNo == j.rollNo) {
-                        j.attendence = jsonObject?.attendence
-                    }
-                }
-            }
-        }
+//        if (attendenceData?.response != null) {
+//
+//            for (i in 0 until attendenceData?.response!!.size) {
+//                val jsonObject = attendenceData?.response!![i]
+//                for (j in data.response!!) {
+//                    if (jsonObject?.rollNo == j.rollNo) {
+//                        j.attendence = jsonObject?.attendence
+//                    }
+//                }
+//            }
+//        }
 
         initRecyerview(data.response!!)
     }

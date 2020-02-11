@@ -38,7 +38,7 @@ class AttendenceViewmodel(val repository: Repository):ViewModel() {
                     attedenceListener?.onSuccess(response.body()!!)
                 } else {
                     attedenceListener?.onFailure(
-                        JSONObject(response.errorBody()?.string()).getString(
+                        JSONObject(response.errorBody()?.string()!!).getString(
                             "response"
                         )
                     )
@@ -66,7 +66,7 @@ class AttendenceViewmodel(val repository: Repository):ViewModel() {
                         attedenceListener?.onAllStudentSuccess(response.body()!!)
                     else
                         attedenceListener?.onFailure(
-                            JSONObject(response.errorBody()?.string()).getString(
+                            JSONObject(response.errorBody()?.string()!!).getString(
                                 "message"
                             )
                         )
@@ -79,12 +79,10 @@ class AttendenceViewmodel(val repository: Repository):ViewModel() {
 
 
     suspend fun check_attendence(
-        date: String,
-        class_name: String,
-        section_name: String
+        class_id: String
     ) {
         attedenceListener?.onStarted()
-        repository.checkAttendence(class_name, section_name, date).enqueue(object :
+        repository.checkAttendence(class_id).enqueue(object :
             Callback<CheckAttendence> {
             override fun onFailure(call: Call<CheckAttendence>, t: Throwable) {
                 Log.e("homeviewmodel", "onFailure: " + t.message)
@@ -101,7 +99,7 @@ class AttendenceViewmodel(val repository: Repository):ViewModel() {
                     attedenceListener?.onCheckAttendence(response.body()!!)
                 } else {
                     attedenceListener?.onCheckAttendenceFailour(
-                        JSONObject(response.errorBody()?.string()).getString(
+                        JSONObject(response.errorBody()?.string()!!).getString(
                             "message"
                         )
                     )

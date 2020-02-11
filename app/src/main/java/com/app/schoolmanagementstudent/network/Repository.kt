@@ -100,11 +100,9 @@ class Repository(val myApi: MyApi):SafeApiRequest() {
     }
 
     suspend fun checkAttendence(
-        class_name: String,
-        section_name: String,
-        date: String
+        class_id: String
     ): Call<CheckAttendence> {
-        return myApi.check_attendence(date, class_name, section_name)
+        return myApi.check_attendence(class_id)
     }
 
 

@@ -1,5 +1,6 @@
 package com.app.schoolmanagementstudent.home
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -29,6 +30,7 @@ class HomeFragment : Fragment(), KodeinAware, HomeFragmentListener {
     var rotation: Float = 0.00f
     private var sharedPreferences: SharedPreferences? = null
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,11 +39,11 @@ class HomeFragment : Fragment(), KodeinAware, HomeFragmentListener {
 
         val databind: FragmentHomeBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        val viewomodel = ViewModelProviders.of(this, factoryAdmin).get(HomeViewModel::class.java)
-        databind.viewmodel = viewomodel
+        homeViewModel = ViewModelProviders.of(this, factoryAdmin).get(HomeViewModel::class.java)
+        databind.viewmodel = homeViewModel
         databind.lifecycleOwner = this
-        viewomodel.view1 = activity
-        viewomodel.homeFragmentListener = this
+        homeViewModel.view1 = activity
+        homeViewModel.homeFragmentListener = this
         sharedPreferences = context?.getSharedPreferences("app", Context.MODE_PRIVATE)
         homeViewModel.name = sharedPreferences?.getString("name", "")
         homeViewModel.mobile = sharedPreferences?.getString("mobile", "")

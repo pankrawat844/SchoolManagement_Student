@@ -190,11 +190,9 @@ interface MyApi {
     ): Call<Homework>
 
     @FormUrlEncoded
-    @POST("check_attendence.php")
+    @POST("student_attendence.php")
     fun check_attendence(
-        @Field("date") date: String,
-        @Field("class_name") class_id: String,
-        @Field("section_name") notice: String
+        @Field("class_id") class_id: String
     ): Call<CheckAttendence>
 
     @Multipart
