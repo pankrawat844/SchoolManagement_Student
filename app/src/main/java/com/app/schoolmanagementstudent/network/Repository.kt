@@ -55,18 +55,18 @@ class Repository(val myApi: MyApi):SafeApiRequest() {
         return myApi.all_student(class_name, section_name)
     }
 
-    suspend fun allTest(incharge_id: String): Call<UpcomingTestList> {
-        return myApi.all_test(incharge_id)
+    suspend fun allTest(class_id: String): Call<UpcomingTestList> {
+        return myApi.all_test(class_id)
     }
 
 
     suspend fun addTest(
         incharge_id: String,
-                         title:String,
-                           date:String,
-                         info:String):Call<Homework>
-    {
-        return  myApi.add_test(incharge_id, title,date,info)
+        title: String,
+        date: String,
+        info: String
+    ): Call<Homework> {
+        return myApi.add_test(incharge_id, title, date, info)
     }
 
 
@@ -79,15 +79,11 @@ class Repository(val myApi: MyApi):SafeApiRequest() {
         return myApi.update_test(id, title, date, info)
     }
 
-    suspend fun addResult(
-        incharge_id: String,
+    suspend fun getResult(
         test_id: String,
-        roll_no: String,
-        date: String,
-        max: String,
-        marks: String
-    ): Call<Homework> {
-        return myApi.add_result(incharge_id, test_id, roll_no, date, max, marks)
+        roll_no: String
+    ): Call<Result> {
+        return myApi.get_result(test_id, roll_no)
     }
 
     suspend fun addAttendence(

@@ -79,20 +79,20 @@ class TestViewmodel(val repository: Repository):ViewModel() {
 
     }
 
-    fun allTest( incharge_id: String){
+    fun allTest(class_id: String) {
         testListener?.onStarted()
         CoroutineScope(Dispatchers.Main).launch {
-            repository.allTest(incharge_id).enqueue(object:Callback<UpcomingTestList>{
+            repository.allTest(class_id).enqueue(object : Callback<UpcomingTestList> {
                 override fun onFailure(call: Call<UpcomingTestList>, t: Throwable) {
-                testListener?.onFailure(t.message!!)
+                    testListener?.onFailure(t.message!!)
                 }
 
                 override fun onResponse(
                     call: Call<UpcomingTestList>,
                     response: Response<UpcomingTestList>
                 ) {
-                    if(response.isSuccessful)
-                    testListener?.onAllTestSuccess(response.body()!!)
+                    if (response.isSuccessful)
+                        testListener?.onAllTestSuccess(response.body()!!)
                     else
                         testListener?.onFailure(JSONObject(response.errorBody()?.string()).getString("message"))
 //                            Log.e("error",response.errorBody()?.string())

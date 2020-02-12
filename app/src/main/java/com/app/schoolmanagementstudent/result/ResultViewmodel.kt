@@ -2,7 +2,7 @@ package com.app.schoolmanagementstudent.result
 
 import androidx.lifecycle.ViewModel
 import com.app.schoolmanagementstudent.network.Repository
-import com.app.schoolmanagementstudent.response.Homework
+import com.app.schoolmanagementstudent.response.Result
 import com.app.schoolmanagementstudent.response.StudentList
 import com.app.schoolmanagementstudent.response.UpcomingTestList
 import kotlinx.coroutines.CoroutineScope
@@ -17,10 +17,10 @@ import retrofit2.Response
 class ResultViewmodel(val repository: Repository) : ViewModel() {
     var testListener: ResultListener? = null
 
-    fun allTest(incharge_id: String) {
+    fun allTest(class_id: String) {
         testListener?.onStarted()
         CoroutineScope(Dispatchers.Main).launch {
-            repository.allTest(incharge_id).enqueue(object : Callback<UpcomingTestList> {
+            repository.allTest(class_id).enqueue(object : Callback<UpcomingTestList> {
                 override fun onFailure(call: Call<UpcomingTestList>, t: Throwable) {
                     testListener?.onFailure(t.message!!)
                 }
@@ -44,25 +44,21 @@ class ResultViewmodel(val repository: Repository) : ViewModel() {
         }
     }
 
-    fun addResult(
-        incharge_id: String,
+    fun getResult(
         test_id: String,
-        roll_no: String,
-        date: String,
-        max_marks: String,
-        marks: String
+        roll_no: String
     ) {
         testListener?.onStarted()
         CoroutineScope(Dispatchers.Main).launch {
-            repository.addResult(incharge_id, test_id, roll_no, date, max_marks, marks)
-                .enqueue(object : Callback<Homework> {
-                    override fun onFailure(call: Call<Homework>, t: Throwable) {
+            repository.getResult(test_id, roll_no)
+                .enqueue(object : Callback<Result> {
+                    override fun onFailure(call: Call<Result>, t: Throwable) {
                         testListener?.onFailure(t.message!!)
                     }
 
                     override fun onResponse(
-                        call: Call<Homework>,
-                        response: Response<Homework>
+                        call: Call<Result>,
+                        response: Response<Result>
                     ) {
                         if (response.isSuccessful)
                             testListener?.onSuccess(response.body()!!)

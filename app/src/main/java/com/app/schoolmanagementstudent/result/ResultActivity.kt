@@ -6,14 +6,13 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.app.schoolmanagementstudent.R
 import com.app.schoolmanagementstudent.databinding.ActivityResultBinding
-import com.app.schoolmanagementstudent.response.Homework
+import com.app.schoolmanagementstudent.response.Result
 import com.app.schoolmanagementstudent.response.StudentList
 import com.app.schoolmanagementstudent.response.UpcomingTestList
 import com.app.schoolmanagementstudent.upcomingtest.UpcoingTestItem
@@ -52,7 +51,7 @@ class ResultActivity : AppCompatActivity(), KodeinAware, ResultListener {
         sharedPreferences = getSharedPreferences("app", Context.MODE_PRIVATE)
         viewmodel?.testListener = this
         databinding.viewmodel = viewmodel
-        viewmodel?.allTest(sharedPreferences?.getString("id", "")!!)
+        viewmodel?.allTest(sharedPreferences?.getString("class_id", "")!!)
         val bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_result)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
@@ -61,21 +60,14 @@ class ResultActivity : AppCompatActivity(), KodeinAware, ResultListener {
 
 
         bottom_sheet_nxt.setOnClickListener {
-            val roll_no = roll_no.selectedItem.toString()
+            //            val roll_no = roll_no.selectedItem.toString()
             val max = max_marks.text.toString().trim()
             val marks = marks_obtained.text.toString().trim()
             CoroutineScope(Dispatchers.Main).launch {
                 if (max.isNullOrBlank() || date.text.toString().isNullOrEmpty() || marks.isNullOrEmpty())
                     toast("All fields are mandatory.")
                 else {
-                    viewmodel?.addResult(
-                        sharedPreferences?.getString("id", "")!!,
-                        id.text.toString(),
-                        roll_no,
-                        date.text.toString(),
-                        max,
-                        marks
-                    )
+
                 }
             }
         }
@@ -110,10 +102,14 @@ class ResultActivity : AppCompatActivity(), KodeinAware, ResultListener {
                         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {
                             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
 //                            name.setText(list.response?.get(position)?.testName!!)
-                            date.text = list.response?.get(position)?.date
-                            id.text = list.response?.get(position)?.id
-                        }
+//                            date.text = list.response?.get(position)?.date
 
+
+                        }
+                        viewmodel?.getResult(
+                            id.text.toString(),
+                            sharedPreferences?.getString("roll_no", "")!!
+                        )
                     }
 
                     override fun onItemLongClick(view: View?, position: Int) {
@@ -129,19 +125,23 @@ class ResultActivity : AppCompatActivity(), KodeinAware, ResultListener {
         progress_bar.show()
     }
 
-    override fun onSuccess(data: Homework) {
-        toast(data.response!!)
+    override fun onSuccess(data: Result) {
+//        name.setText(data.response?.testId!!)
+        date.text = data.response?.date
+        max_marks.text = data.response?.maxMark!!
+        marks_obtained.text = data.response.markObtain
+        toast(data.message!!)
         finish()
     }
 
     override fun onAllStudentSuccess(data: StudentList) {
         progress_bar.hide()
-        roll_no.adapter = data.response?.toItem()?.let {
-            ArrayAdapter(
-                this, android.R.layout.simple_dropdown_item_1line,
-                it
-            )
-        }
+//        roll_no.adapter = data.response?.toItem()?.let {
+//            ArrayAdapter(
+//                this, android.R.layout.simple_dropdown_item_1line,
+//                it
+//            )
+//        }
     }
 
     private fun List<StudentList.Response>.toItem(): List<String> {

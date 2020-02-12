@@ -136,7 +136,7 @@
         android:background="@color/colorPrimaryDark"
         android:padding="0dp"
         android:text="Next"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/info" />
     <TextView
         android:id="@+id/id"

@@ -48,7 +48,7 @@ class UpcomingTest : AppCompatActivity(), KodeinAware, TestListener {
         sharedPreferences = getSharedPreferences("app", Context.MODE_PRIVATE)
         viewmodel.testListener = this
         databinding.viewmodel = viewmodel
-        viewmodel.allTest(sharedPreferences?.getString("id", "")!!)
+        viewmodel.allTest(sharedPreferences?.getString("class_id", "")!!)
         val bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_test)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         menu.setOnClickListener {

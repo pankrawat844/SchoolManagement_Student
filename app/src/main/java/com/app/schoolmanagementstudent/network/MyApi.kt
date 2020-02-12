@@ -153,9 +153,9 @@ interface MyApi {
         @Field("info") info:String
     ):Call<Homework>
     @FormUrlEncoded
-    @POST("teacher_api/test_list.php")
+    @POST("test_list.php")
     fun all_test(
-        @Field("incharge_id") incharge_id:String
+        @Field("class_id") class_id: String
 
     ): Call<UpcomingTestList>
 
@@ -169,16 +169,12 @@ interface MyApi {
     ): Call<StudentList>
 
     @FormUrlEncoded
-    @POST("add_result.php")
-    fun add_result(
-        @Field("incharge_id") incharge_id: String,
+    @POST("test_result.php")
+    fun get_result(
         @Field("test_id") test_id: String,
-        @Field("roll_no") roll_no: String,
-        @Field("date") date: String,
-        @Field("max_mark") max: String,
-        @Field("mark_obtained") marks: String
+        @Field("roll_no") roll_no: String
 
-    ): Call<Homework>
+    ): Call<Result>
 
     @FormUrlEncoded
     @POST("attendence.php")
