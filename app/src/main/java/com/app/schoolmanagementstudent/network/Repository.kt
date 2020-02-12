@@ -111,10 +111,9 @@ class Repository(val myApi: MyApi):SafeApiRequest() {
     }
 
     suspend fun getTimetable(
-        class_name: String,
-        section_name: String
+        class_id: String
     ): Call<Timetable> {
-        return myApi.get_timetable(class_name, section_name)
+        return myApi.get_timetable(class_id)
     }
 
     suspend fun uploadBusInfo(

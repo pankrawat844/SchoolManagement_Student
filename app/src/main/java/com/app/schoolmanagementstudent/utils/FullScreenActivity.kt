@@ -10,6 +10,6 @@ class FullScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_full_screen)
-        Picasso.get().load(Constants.base_url + intent.getStringExtra("url")).into(img)
+        Picasso.get().load(Constants.homework_url + intent.getStringExtra("url")).into(img)
     }
 }

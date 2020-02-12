@@ -58,7 +58,7 @@ class HomeworkActivity : AppCompatActivity(), PhotoPickerFragment.Callback, Kode
         viewmodel?.homeworkListener = this
         sharedPreferences=getSharedPreferences("app", Context.MODE_PRIVATE)
 
-        viewmodel?.allHomework(sharedPreferences?.getString("id","")!!)
+        viewmodel?.allHomework(sharedPreferences?.getString("class_id", "")!!)
         camera.setOnClickListener {
             PhotoPickerFragment.newInstance(
                 multiple = false,
@@ -139,7 +139,10 @@ class HomeworkActivity : AppCompatActivity(), PhotoPickerFragment.Callback, Kode
         val body: MultipartBody.Part =
             MultipartBody.Part.createFormData("fileToUpload", photos[0].toFile().name, path)
         val incharge_id: RequestBody =
-            sharedPreferences?.getString("id", "")!!.toRequestBody("text/plain".toMediaTypeOrNull())
+            sharedPreferences?.getString(
+                "class_id",
+                ""
+            )!!.toRequestBody("text/plain".toMediaTypeOrNull())
         val date: RequestBody = "date".toRequestBody("text/plain".toMediaTypeOrNull())
         val txt: RequestBody = "txt".toRequestBody("text/plain".toMediaTypeOrNull())
         CoroutineScope(Dispatchers.Main).launch {

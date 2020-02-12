@@ -23,9 +23,6 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_upcoming_test.*
 import kotlinx.android.synthetic.main.bottomsheet_test.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
@@ -51,41 +48,16 @@ class UpcomingTest : AppCompatActivity(), KodeinAware, TestListener {
         viewmodel.allTest(sharedPreferences?.getString("class_id", "")!!)
         val bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_test)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-        menu.setOnClickListener {
-            isupdateing = false
-            add_notice.text = "Add Test"
-            if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                name.setText("")
-                date.text = ""
-                info.setText("")
-            }
 
-        }
         bottom_sheet_nxt.setOnClickListener {
-            val name = name.text.toString().trim()
-            val info = info.text.toString().trim()
-            CoroutineScope(Dispatchers.Main).launch {
-                if (title.isNullOrBlank() || info.isNullOrBlank() || date.text.toString().isNullOrEmpty())
-                    toast("All fields are mandatory.")
-                else {
-                    if(isupdateing)
-                        viewmodel.updateTest(
-                           id.text.toString(),
-                            name,
-                            date.text.toString(),
-                            info
-                        )
-                        else
-
-                    viewmodel.addTest(
-                        sharedPreferences?.getString("id", "")!!,
-                        name,
-                        date.text.toString(),
-                        info
-                    )
-                }
+//            val name = name.text.toString().trim()
+//            val info = info.text.toString().trim()
+            if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             }
+            date.text = ""
+            info.text = ""
+            name.text = ""
         }
         date.text = SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis())
         var cal = Calendar.getInstance()
@@ -114,11 +86,9 @@ class UpcomingTest : AppCompatActivity(), KodeinAware, TestListener {
                 text_recyclerview,
                 object : RecyclerItemClickListenr.OnItemClickListener {
                     override fun onItemClick(view: View, position: Int) {
-
                         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {
                             isupdateing = true
                             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-                            add_notice.text = "Update Test"
                             name.setText(list.response?.get(position)?.testName!!)
                             date.text = list.response?.get(position)?.date
                             info.setText(list.response?.get(position)?.info)

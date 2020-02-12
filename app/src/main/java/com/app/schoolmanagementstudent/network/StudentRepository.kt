@@ -34,10 +34,9 @@ class StudentRepository(val api: MyApi) : SafeApiRequest() {
     }
 
     suspend fun getTimetable(
-        class_name: String,
-        section_name: String
+        class_name: String
     ): Call<Timetable> {
-        return api.get_timetable(class_name, section_name)
+        return api.get_timetable(class_name)
     }
 
     suspend fun uploadBusInfo(

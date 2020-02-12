@@ -88,9 +88,9 @@ interface MyApi {
     ): Call<TeacherLogin>
 
     @FormUrlEncoded
-    @POST("teacher_api/homework_list.php")
+    @POST("homework_list.php")
     fun all_homework(
-        @Field("incharge_id") incharge_id:String
+        @Field("class_id") incharge_id: String
 
     ):Call<HomeworkList>
 
@@ -203,8 +203,7 @@ interface MyApi {
     @FormUrlEncoded
     @POST("timetable_list.php")
     fun get_timetable(
-        @Field("class_name") class_name: String,
-        @Field("section_name") notice: String
+        @Field("class_id") class_id: String
     ): Call<Timetable>
 
 

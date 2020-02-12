@@ -57,7 +57,8 @@ class HomeworkRecyclerviewAdapter(val list:List<HomeworkList.Response>):Recycler
             }
             TYPE_IMG->{
                 val imgViewholder=holder as ImageViewholder
-                Picasso.get().load(Constants.base_url+list[position].homeworkImg).error(R.drawable.gallery).into(imgViewholder.imageview)
+                Picasso.get().load(Constants.homework_url + list[position].homeworkImg)
+                    .error(R.drawable.gallery).into(imgViewholder.imageview)
             }
         }
     }

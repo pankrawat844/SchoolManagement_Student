@@ -25,9 +25,6 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_result.*
 import kotlinx.android.synthetic.main.bottomsheet_result.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
@@ -41,6 +38,7 @@ class ResultActivity : AppCompatActivity(), KodeinAware, ResultListener {
     lateinit var list: UpcomingTestList
     var isupdateing: Boolean = false
     var viewmodel: ResultViewmodel? = null
+    lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val databinding = DataBindingUtil.setContentView<ActivityResultBinding>(
@@ -52,7 +50,7 @@ class ResultActivity : AppCompatActivity(), KodeinAware, ResultListener {
         viewmodel?.testListener = this
         databinding.viewmodel = viewmodel
         viewmodel?.allTest(sharedPreferences?.getString("class_id", "")!!)
-        val bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_result)
+        bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_result)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
 
@@ -61,15 +59,13 @@ class ResultActivity : AppCompatActivity(), KodeinAware, ResultListener {
 
         bottom_sheet_nxt.setOnClickListener {
             //            val roll_no = roll_no.selectedItem.toString()
-            val max = max_marks.text.toString().trim()
-            val marks = marks_obtained.text.toString().trim()
-            CoroutineScope(Dispatchers.Main).launch {
-                if (max.isNullOrBlank() || date.text.toString().isNullOrEmpty() || marks.isNullOrEmpty())
-                    toast("All fields are mandatory.")
-                else {
-
-                }
+            if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             }
+            date.text = ""
+            roll_no.text = ""
+            max_marks.text = ""
+            marks_obtained.text = ""
         }
         date.text = SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis())
         var cal = Calendar.getInstance()
@@ -99,17 +95,16 @@ class ResultActivity : AppCompatActivity(), KodeinAware, ResultListener {
                 object : RecyclerItemClickListenr.OnItemClickListener {
                     override fun onItemClick(view: View, position: Int) {
 
-                        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {
-                            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-//                            name.setText(list.response?.get(position)?.testName!!)
-//                            date.text = list.response?.get(position)?.date
-
-
+                        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+                            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
                         }
+
+
                         viewmodel?.getResult(
-                            id.text.toString(),
+                            list.response?.get(position)?.id!!,
                             sharedPreferences?.getString("roll_no", "")!!
                         )
+
                     }
 
                     override fun onItemLongClick(view: View?, position: Int) {
@@ -128,10 +123,13 @@ class ResultActivity : AppCompatActivity(), KodeinAware, ResultListener {
     override fun onSuccess(data: Result) {
 //        name.setText(data.response?.testId!!)
         date.text = data.response?.date
+        roll_no.text = data.response?.rollNo!!
         max_marks.text = data.response?.maxMark!!
         marks_obtained.text = data.response.markObtain
         toast(data.message!!)
-        finish()
+        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
     }
 
     override fun onAllStudentSuccess(data: StudentList) {
@@ -155,10 +153,10 @@ class ResultActivity : AppCompatActivity(), KodeinAware, ResultListener {
         list = data
         Log.e("TAG", "onAllNoticeSuccess: " + data.response)
         initRecyerview(data.response?.toNoticeItem()!!)
-        viewmodel?.allstudent(
-            sharedPreferences?.getString("class_name", "")!!,
-            sharedPreferences?.getString("section_name", "")!!
-        )
+//        viewmodel?.allstudent(
+//            sharedPreferences?.getString("class_name", "")!!,
+//            sharedPreferences?.getString("section_name", "")!!
+//        )
     }
 
     private fun initRecyerview(toNoticeItem: List<UpcoingTestItem>) {

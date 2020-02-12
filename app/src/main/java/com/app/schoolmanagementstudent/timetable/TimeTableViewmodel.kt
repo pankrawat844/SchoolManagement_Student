@@ -47,11 +47,10 @@ class TimeTableViewmodel(val repository: Repository):ViewModel() {
 
     }
 
-    fun timetable( class_name: String,
-                   section_name: String){
+    fun timetable(class_id: String) {
         timetableListener?.onStarted()
         CoroutineScope(Dispatchers.Main).launch {
-            repository.getTimetable(class_name,section_name).enqueue(object: Callback<Timetable> {
+            repository.getTimetable(class_id).enqueue(object : Callback<Timetable> {
                 override fun onFailure(call: Call<Timetable>, t: Throwable) {
                     timetableListener?.onFailure(t.message!!)
                 }
@@ -60,7 +59,7 @@ class TimeTableViewmodel(val repository: Repository):ViewModel() {
                     call: Call<Timetable>,
                     response: Response<Timetable>
                 ) {
-                    if(response.isSuccessful)
+                    if (response.isSuccessful)
                         timetableListener?.onSuccess(response.body()!!)
                     else
                         timetableListener?.onFailure(JSONObject(response.errorBody()?.string()).getString("message"))

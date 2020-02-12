@@ -65,7 +65,7 @@ class ResultViewmodel(val repository: Repository) : ViewModel() {
                         else
                             testListener?.onFailure(
                                 JSONObject(response.errorBody()?.string()).getString(
-                                    "response"
+                                    "message"
                                 )
                             )
 //                            Log.e("error",response.errorBody()?.string())
