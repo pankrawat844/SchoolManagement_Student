@@ -15,9 +15,14 @@ import com.app.schoolmanagementstudent.response.Homework
 import com.app.schoolmanagementstudent.utils.hide
 import com.app.schoolmanagementstudent.utils.show
 import com.app.schoolmanagementstudent.utils.toast
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_complaint.*
+import kotlinx.android.synthetic.main.bottomsheet_complaint.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
@@ -37,22 +42,27 @@ class ComplaintActivity : AppCompatActivity(), KodeinAware, ComplaintListener {
         viewmodel.complaintListener = this
         databinding.viewmodel = viewmodel
         viewmodel.allComplaint(sharedPreferences?.getString("student_id", "")!!)
-//        val bottomSheetBehavior= BottomSheetBehavior.from(bottom_sheet_notice)
-//        bottomSheetBehavior.state= BottomSheetBehavior.STATE_HIDDEN
-//        menu.setOnClickListener {
-//            if(bottomSheetBehavior.state== BottomSheetBehavior.STATE_HIDDEN)
-//                bottomSheetBehavior.state= BottomSheetBehavior.STATE_EXPANDED
-//        }
-//        bottom_sheet_nxt.setOnClickListener {
-//            val title=titl.text.toString().trim()
-//            val notice=notice_txt.text.toString().trim()
-//            CoroutineScope(Dispatchers.Main).launch {
-//                if(title.isNullOrBlank() || notice.isNullOrBlank())
-//                    toast("Both field is mandatory.")
-//                else
-//                    viewmodel.addComplaint(sharedPreferences?.getString("student_id", "")!!, sharedPreferences?.getString("class_id", "")!!,title,notice)
-//            }
-//        }
+        val bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_complaint)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        menu.setOnClickListener {
+            if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN)
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+        bottom_sheet_nxt.setOnClickListener {
+            val title = titl.text.toString().trim()
+            val notice = complaint.text.toString().trim()
+            CoroutineScope(Dispatchers.Main).launch {
+                if (title.isBlank() || notice.isBlank())
+                    toast("Both field is mandatory.")
+                else
+                    viewmodel.addComplaint(
+                        sharedPreferences?.getString("student_id", "")!!,
+                        sharedPreferences?.getString("class_id", "")!!,
+                        title,
+                        notice
+                    )
+            }
+        }
 
     }
 

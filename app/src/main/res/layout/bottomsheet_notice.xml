@@ -107,7 +107,7 @@
         android:layout_marginTop="10dp"
         android:background="@color/colorPrimaryDark"
         android:padding="0dp"
-        android:text="Next"
+        android:text="Submit"
         android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/linear_rating" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bottom_sheet_test"
+    android:id="@+id/bottom_sheet_complaint"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -15,16 +15,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
-        android:text="Test"
+        android:fontFamily="@font/maven_pro_bold"
+        android:text="Add Complaint"
+        android:textAllCaps="true"
         android:textColor="#000"
         android:textSize="17sp"
-        android:fontFamily="@font/maven_pro_bold"
-        android:textAllCaps="true"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
@@ -33,12 +31,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
-        android:text="Name"
+        android:text="Title"
         android:textColor="#9b9b9b"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_notice"
-     />
+        app:layout_constraintTop_toBottomOf="@+id/add_notice" />
 
     <LinearLayout
         android:id="@+id/linear_car_type"
@@ -53,33 +50,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/filter">
 
-        <TextView
-            android:id="@+id/name"
+        <EditText
+            android:id="@+id/titl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rect_filter"
-            android:gravity="center_vertical"
-            android:paddingStart="10dp"
             android:text="">
 
 
-        </TextView>
+        </EditText>
     </LinearLayout>
+
     <TextView
         android:id="@+id/filter_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
-        android:text="Date"
+        android:text="Complaint"
         android:textColor="#9b9b9b"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linear_car_type" />
+
     <LinearLayout
-        android:id="@+id/linear_date"
+        android:id="@+id/linear_rating"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="140dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
@@ -87,50 +84,19 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filter_rating"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/filter_rating">
 
-        <TextView
-            android:id="@+id/date"
+        <EditText
+            android:id="@+id/complaint"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text=""
-            android:textColor="@color/black"
-            android:textSize="18dp"
-            android:paddingStart="10dp"
-            android:gravity="center_vertical"
+            android:layout_height="140dp"
             android:background="@drawable/rect_filter"
-            />
-
+            android:gravity="start"
+            android:padding="10dp"
+            android:text="" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/info_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:text="Info"
-        android:textColor="#9b9b9b"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_date" />
 
-
-    <TextView
-        android:id="@+id/info"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:text=""
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:gravity="center_vertical"
-        android:paddingStart="10dp"
-        android:background="@drawable/rect_filter"
-        app:layout_constraintTop_toBottomOf="@+id/info_txt" />
     <Button
         android:id="@+id/bottom_sheet_nxt"
         android:layout_width="match_parent"
@@ -138,12 +104,7 @@
         android:layout_marginTop="10dp"
         android:background="@color/colorPrimaryDark"
         android:padding="0dp"
-        android:text="SUBMIT"
+        android:text="Submit"
         android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/info" />
-    <TextView
-        android:id="@+id/id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@+id/linear_rating" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,8 +32,16 @@ class NoticeViewmodel(val repository: Repository):ViewModel() {
             }
 
             override fun onResponse(call: Call<Homework>, response: Response<Homework>) {
-                Log.e("homeviewmodel", "onsuccess: " + response.body()!!.response)
-                noticeListener?.onSuccess(response.body()!!)
+                if (response.isSuccessful) {
+                    Log.e("homeviewmodel", "onsuccess: " + response.body()!!.response)
+                    noticeListener?.onSuccess(response.body()!!)
+                } else {
+                    noticeListener?.onFailure(
+                        JSONObject(
+                            response.errorBody()?.string()!!
+                        ).getString("response")
+                    )
+                }
 
             }
 

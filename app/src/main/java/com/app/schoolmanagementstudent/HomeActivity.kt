@@ -15,7 +15,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.app.schoolmanagementstudent.login.LoginActivity
+import com.app.schoolmanagementstudent.login.studentlogin.StudentLoginActivity
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_admin.*
 
@@ -71,7 +71,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val sharedPreferences: SharedPreferences =
                     getSharedPreferences("app", Context.MODE_PRIVATE)
                 sharedPreferences.edit().clear().commit()
-                Intent(this@HomeActivity, LoginActivity::class.java).also {
+                Intent(this@HomeActivity, StudentLoginActivity::class.java).also {
                     it.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                     it.flags = Intent.FLAG_ACTIVITY_NEW_TASK

@@ -126,7 +126,7 @@ interface MyApi {
         @Field("student_id") student_id: String,
         @Field("class_id") class_id: String,
         @Field("title") title: String,
-        @Field("notice") notice: String
+        @Field("complaint") notice: String
     ): Call<Homework>
 
     @FormUrlEncoded
@@ -251,7 +251,7 @@ interface MyApi {
     ): Call<Homework>
 
     @FormUrlEncoded
-    @POST("leave_detail.php")
+    @POST("teacher_api/leave_detail.php")
     fun get_leave(
         @Field("class_name") class_name: String,
         @Field("section_name") notice: String
