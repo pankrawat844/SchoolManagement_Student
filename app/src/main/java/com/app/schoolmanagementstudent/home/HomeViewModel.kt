@@ -14,6 +14,7 @@ import com.app.schoolmanagementstudent.R
 import com.app.schoolmanagementstudent.WebviewActivity
 import com.app.schoolmanagementstudent.attendance.AttendenceActivity
 import com.app.schoolmanagementstudent.businfo.BusInfoActivity
+import com.app.schoolmanagementstudent.complaint.ComplaintActivity
 import com.app.schoolmanagementstudent.event.EventActivity
 
 import com.app.schoolmanagementstudent.feeinfo.FeeInfoActivity
@@ -221,4 +222,9 @@ class HomeViewModel(val adminRepository: Repository, val studentRepository: Stud
         }
     }
 
+    fun onComplaintClick(view: View) {
+        Intent(view.context, ComplaintActivity::class.java).also {
+            view.context.startActivity(it)
+        }
+    }
 }

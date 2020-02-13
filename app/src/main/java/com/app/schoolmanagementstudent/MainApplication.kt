@@ -4,6 +4,8 @@ import android.app.Application
 import com.app.schoolmanagementstudent.attendance.AttendenceViewmodel
 import com.app.schoolmanagementstudent.attendance.AttendenceViewmodelFactory
 import com.app.schoolmanagementstudent.businfo.BusInfoViewmodel
+import com.app.schoolmanagementstudent.complaint.ComplaintViewmodel
+import com.app.schoolmanagementstudent.complaint.ComplaintViewmodelFactory
 import com.app.schoolmanagementstudent.event.EventViewmodel
 import com.app.schoolmanagementstudent.event.EventViewmodelFactory
 import com.app.schoolmanagementstudent.feeinfo.FeeInfoViewmodel
@@ -102,6 +104,9 @@ class MainApplication : Application(), KodeinAware {
         bind() from singleton { StudentSignupRepository(instance()) }
         bind() from singleton { StudentSignupViewModel(instance()) }
         bind() from singleton { StudentSignupViewModelFactory(instance()) }
+
+        bind() from singleton { ComplaintViewmodelFactory(instance()) }
+        bind() from singleton { ComplaintViewmodel(instance()) }
 
 
     }

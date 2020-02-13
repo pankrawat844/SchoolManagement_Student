@@ -17,20 +17,32 @@ class Repository(val myApi: MyApi):SafeApiRequest() {
     suspend fun sendHomework(@Part("incharge_id") incharge_id: RequestBody,
                              @Part("date") date:RequestBody,
                              @Part("homework_txt") homework_txt:RequestBody,
-                            img: MultipartBody.Part):Call<Homework>
-    {
-        return  myApi.homework_upload(incharge_id, date, homework_txt, img)
+                            img: MultipartBody.Part):Call<Homework> {
+        return myApi.homework_upload(incharge_id, date, homework_txt, img)
     }
 
 
-    suspend fun allHomework(incharge_id: String):Call<HomeworkList>
-    {
-        return  myApi.all_homework(incharge_id)
+    suspend fun allHomework(incharge_id: String): Call<HomeworkList> {
+        return myApi.all_homework(incharge_id)
     }
 
-    suspend fun addNotice(incharge_id: String,
-                          title: String,
-                          notice: String
+    suspend fun addComplaint(
+        student_id: String,
+        class_id: String,
+        title: String,
+        notice: String
+    ): Call<Homework> {
+        return myApi.add_complaint(student_id, class_id, title, notice)
+    }
+
+    suspend fun allComplaint(incharge_id: String): Call<ComplaintList> {
+        return myApi.all_complaint(incharge_id)
+    }
+
+    suspend fun addNotice(
+        incharge_id: String,
+        title: String,
+        notice: String
     ): Call<Homework> {
         return myApi.add_notice(incharge_id, title, notice)
     }

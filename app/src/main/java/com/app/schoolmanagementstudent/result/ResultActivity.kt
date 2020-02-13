@@ -54,9 +54,6 @@ class ResultActivity : AppCompatActivity(), KodeinAware, ResultListener {
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
 
-
-
-
         bottom_sheet_nxt.setOnClickListener {
             //            val roll_no = roll_no.selectedItem.toString()
             if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
@@ -75,7 +72,7 @@ class ResultActivity : AppCompatActivity(), KodeinAware, ResultListener {
                 cal.set(Calendar.YEAR, year)
                 cal.set(Calendar.MONTH, monthOfYear)
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                val myFormat = "dd/MM/yyyy" // mention the format you need
+                val myFormat = "dd/MM/yyyy"
                 val sdf = SimpleDateFormat(myFormat, Locale.US)
                 date.text = sdf.format(cal.time)
 
@@ -124,7 +121,7 @@ class ResultActivity : AppCompatActivity(), KodeinAware, ResultListener {
 //        name.setText(data.response?.testId!!)
         date.text = data.response?.date
         roll_no.text = data.response?.rollNo!!
-        max_marks.text = data.response?.maxMark!!
+        max_marks.text = data.response.maxMark!!
         marks_obtained.text = data.response.markObtain
         toast(data.message!!)
         if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN) {

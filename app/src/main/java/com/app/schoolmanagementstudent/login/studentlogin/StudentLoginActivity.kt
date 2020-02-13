@@ -61,7 +61,7 @@ class StudentLoginActivity : AppCompatActivity(), StudentLoginListener, KodeinAw
             it.putString("school_id", viewModel.school_id)
             it.putString("school_name", student.schoolName)
             it.putString("class_id", student.class_id)
-
+            it.putString("student_id", student.studentId)
             it.putString("roll_no", student.rollNo)
             it.putString("gender", student.gender)
             it.putString("address", student.address)

@@ -119,6 +119,23 @@ interface MyApi {
 
     ): Call<NoticeList>
 
+
+    @FormUrlEncoded
+    @POST("add_complaint.php")
+    fun add_complaint(
+        @Field("student_id") student_id: String,
+        @Field("class_id") class_id: String,
+        @Field("title") title: String,
+        @Field("notice") notice: String
+    ): Call<Homework>
+
+    @FormUrlEncoded
+    @POST("complaint_list.php")
+    fun all_complaint(
+        @Field("student_id") student_id: String
+
+    ): Call<ComplaintList>
+
     @FormUrlEncoded
     @POST("add_event.php")
     fun add_event(
