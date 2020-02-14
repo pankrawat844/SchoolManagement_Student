@@ -149,11 +149,14 @@ class BusInfoActivity : AppCompatActivity(), KodeinAware, BusInfoListener,
         {
             pdfViewer.webViewClient= WebViewClient()
             pdfViewer.settings.javaScriptEnabled=true
-            pdfViewer.loadUrl("http://docs.google.com/gview?embedded=true&url="+Constants.base_url+data.response.pdfPath)
+            pdfViewer.loadUrl(
+                "http://docs.google.com/gview?embedded=true&url=" + Constants.homework_url + data.response
+                    .pdfPath
+            )
             pdfViewer.visibility=View.VISIBLE
         }else if(data.response?.isPdf=="0")
         {
-            Picasso.get().load(Constants.base_url+data.response.imgPath).fit().into(imageView)
+            Picasso.get().load(Constants.homework_url + data.response.imgPath).fit().into(imageView)
             imageView.visibility=View.VISIBLE
         }
     }

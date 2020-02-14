@@ -145,9 +145,9 @@ interface MyApi {
     ): Call<Homework>
 
     @FormUrlEncoded
-    @POST("teacher_api/event_list.php")
+    @POST("event_list.php")
     fun all_event(
-        @Field("incharge_id") incharge_id: String
+        @Field("class_id") incharge_id: String
 
     ): Call<NoticeList>
 

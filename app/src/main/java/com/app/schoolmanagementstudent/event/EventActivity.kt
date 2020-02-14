@@ -40,7 +40,7 @@ class EventActivity : AppCompatActivity(), KodeinAware, EventListener {
         sharedPreferences = getSharedPreferences("app", Context.MODE_PRIVATE)
         viewmodel.noticeListener = this
         databinding.viewmodel = viewmodel
-        viewmodel.allNotice(sharedPreferences?.getString("id", "")!!)
+        viewmodel.allNotice(sharedPreferences?.getString("class_id", "")!!)
         val bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_notice)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         menu.setOnClickListener {
