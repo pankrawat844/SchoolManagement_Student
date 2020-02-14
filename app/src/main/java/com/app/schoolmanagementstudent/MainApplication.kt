@@ -10,6 +10,8 @@ import com.app.schoolmanagementstudent.event.EventViewmodel
 import com.app.schoolmanagementstudent.event.EventViewmodelFactory
 import com.app.schoolmanagementstudent.feeinfo.FeeInfoViewmodel
 import com.app.schoolmanagementstudent.feeinfo.FeeInfoViewmodelFactory
+import com.app.schoolmanagementstudent.gallery.GalleryViewModel
+import com.app.schoolmanagementstudent.gallery.GalleryViewModelFactory
 import com.app.schoolmanagementstudent.home.HomeViewModel
 import com.app.schoolmanagementstudent.home.HomeViewModelFactory
 import com.app.schoolmanagementstudent.homework.HomeworkViewmodel
@@ -107,6 +109,9 @@ class MainApplication : Application(), KodeinAware {
 
         bind() from singleton { ComplaintViewmodelFactory(instance()) }
         bind() from singleton { ComplaintViewmodel(instance()) }
+
+        bind() from singleton { GalleryViewModel(instance()) }
+        bind() from singleton { GalleryViewModelFactory(instance()) }
 
 
     }

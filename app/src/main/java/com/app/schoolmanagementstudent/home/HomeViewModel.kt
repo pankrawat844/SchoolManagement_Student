@@ -18,6 +18,7 @@ import com.app.schoolmanagementstudent.complaint.ComplaintActivity
 import com.app.schoolmanagementstudent.event.EventActivity
 
 import com.app.schoolmanagementstudent.feeinfo.FeeInfoActivity
+import com.app.schoolmanagementstudent.gallery.GalleryActivity
 import com.app.schoolmanagementstudent.homework.HomeworkActivity
 import com.app.schoolmanagementstudent.leave.LeaveActivity
 import com.app.schoolmanagementstudent.network.Repository
@@ -224,6 +225,12 @@ class HomeViewModel(val adminRepository: Repository, val studentRepository: Stud
 
     fun onComplaintClick(view: View) {
         Intent(view.context, ComplaintActivity::class.java).also {
+            view.context.startActivity(it)
+        }
+    }
+
+    fun onGalleryClick(view: View) {
+        Intent(view.context, GalleryActivity::class.java).also {
             view.context.startActivity(it)
         }
     }

@@ -60,6 +60,8 @@
         <activity android:name=".login.schoollogin.SchoolLoginActivity" />
         <activity android:name=".login.studentlogin.StudentLoginActivity" />
         <activity android:name=".login.studentsignup.StudentSignupActivity" />
+        <activity android:name=".gallery.GalleryActivity" />
+        <activity android:name=".gallery.GalleryItemActivity" />
     </application>
 
 </manifest>

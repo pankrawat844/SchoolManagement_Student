@@ -172,4 +172,12 @@ class Repository(val myApi: MyApi):SafeApiRequest() {
         return myApi.get_feeInfo(class_name, section_name)
     }
 
+
+    suspend fun allFolder(): Call<Gallery> {
+        return myApi.all_folder()
+    }
+
+    suspend fun allFiles(folder: String): Call<Gallery> {
+        return myApi.all_files(folder)
+    }
 }

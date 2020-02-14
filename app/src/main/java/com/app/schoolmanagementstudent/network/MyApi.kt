@@ -272,4 +272,14 @@ interface MyApi {
         @Field("class_name") class_name: String,
         @Field("section_name") notice: String
     ): Call<Timetable>
+
+
+    @GET("gallery_allfolder.php")
+    fun all_folder(): Call<Gallery>
+
+    @FormUrlEncoded
+    @POST("gallery_all_files.php")
+    fun all_files(
+        @Field("folder") folder: String
+    ): Call<Gallery>
 }
