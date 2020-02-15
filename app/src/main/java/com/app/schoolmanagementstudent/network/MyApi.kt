@@ -113,9 +113,9 @@ interface MyApi {
     ): Call<Homework>
 
     @FormUrlEncoded
-    @POST("teacher_api/notice_list.php")
+    @POST("notice_list.php")
     fun all_notice(
-        @Field("incharge_id") incharge_id: String
+        @Field("class_id") incharge_id: String
 
     ): Call<NoticeList>
 

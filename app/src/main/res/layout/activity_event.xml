@@ -20,7 +20,7 @@
             tools:context=".notice.NoticeActivity">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/notice_recyclerview"
+                android:id="@+id/event_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -50,6 +50,6 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <include layout="@layout/bottomsheet_notice" />
+        <include layout="@layout/bottomsheet_event" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

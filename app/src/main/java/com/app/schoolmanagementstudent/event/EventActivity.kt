@@ -13,17 +13,16 @@ import com.app.schoolmanagementstudent.R
 import com.app.schoolmanagementstudent.databinding.ActivityEventBinding
 import com.app.schoolmanagementstudent.response.Homework
 import com.app.schoolmanagementstudent.response.NoticeList
+import com.app.schoolmanagementstudent.utils.RecyclerItemClickListenr
 import com.app.schoolmanagementstudent.utils.hide
 import com.app.schoolmanagementstudent.utils.show
 import com.app.schoolmanagementstudent.utils.toast
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
-import kotlinx.android.synthetic.main.activity_notice.*
-import kotlinx.android.synthetic.main.bottomsheet_notice.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.android.synthetic.main.activity_event.*
+import kotlinx.android.synthetic.main.activity_notice.progress_bar
+import kotlinx.android.synthetic.main.bottomsheet_event.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
@@ -32,6 +31,7 @@ class EventActivity : AppCompatActivity(), KodeinAware, EventListener {
     override val kodein by kodein()
     val factory: EventViewmodelFactory by instance()
     var sharedPreferences: SharedPreferences? = null
+    var list = ArrayList<NoticeList.Response>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val databinding =
@@ -41,24 +41,37 @@ class EventActivity : AppCompatActivity(), KodeinAware, EventListener {
         viewmodel.noticeListener = this
         databinding.viewmodel = viewmodel
         viewmodel.allNotice(sharedPreferences?.getString("class_id", "")!!)
-        val bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_notice)
+        val bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_event)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-        menu.setOnClickListener {
-            if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN)
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-        }
+
         bottom_sheet_nxt.setOnClickListener {
-            val title = titl.text.toString().trim()
-            val notice = notice_txt.text.toString().trim()
-            CoroutineScope(Dispatchers.Main).launch {
-                if (title.isNullOrBlank() || notice.isNullOrBlank())
-                    toast("Both field are mandatory.")
-                else
-                    viewmodel.addNotice(sharedPreferences?.getString("id", "")!!, title, notice)
-            }
+
+            if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED)
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
-        if (sharedPreferences?.getString("role", "") == "incharge")
-            menu.visibility = View.VISIBLE
+
+
+        event_recyclerview.addOnItemTouchListener(
+            RecyclerItemClickListenr(
+                this,
+                event_recyclerview,
+                object : RecyclerItemClickListenr.OnItemClickListener {
+                    override fun onItemClick(view: View, position: Int) {
+                        titl.text = list[position].title
+                        date1.text = list[position].date
+                        event_txt.text = list[position].notice
+
+                        if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_HIDDEN)
+                            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                    }
+
+                    override fun onItemLongClick(view: View?, position: Int) {
+
+                    }
+                })
+        )
+
+
     }
 
     override fun onStarted() {
@@ -72,15 +85,16 @@ class EventActivity : AppCompatActivity(), KodeinAware, EventListener {
 
     override fun onAllNoticeSuccess(data: NoticeList) {
         progress_bar.hide()
+        list.addAll(data.response!!)
         Log.e("TAG", "onAllNoticeSuccess: " + data.response)
-        initRecyerview(data.response?.toNoticeItem()!!)
+        initRecyerview(data.response.toNoticeItem())
     }
 
     private fun initRecyerview(toNoticeItem: List<EventItem>) {
         val adapter = GroupAdapter<ViewHolder>().apply {
             addAll(toNoticeItem)
         }
-        notice_recyclerview.apply {
+        event_recyclerview.apply {
             layoutManager = LinearLayoutManager(this@EventActivity)
             setAdapter(adapter)
 

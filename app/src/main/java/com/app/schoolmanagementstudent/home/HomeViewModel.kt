@@ -234,4 +234,5 @@ class HomeViewModel(val adminRepository: Repository, val studentRepository: Stud
             view.context.startActivity(it)
         }
     }
+
 }
