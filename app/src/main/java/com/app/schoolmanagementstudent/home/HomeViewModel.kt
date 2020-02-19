@@ -139,6 +139,10 @@ class HomeViewModel(val adminRepository: Repository, val studentRepository: Stud
                 }
             }
         }
+        val alerdialog = AlertDialog.Builder(view1)
+        alerdialog.setView(dialogView)
+        val dialog = alerdialog.create()
+        dialog.show()
     }
 
     fun onHomeWorkClick(view: View) {

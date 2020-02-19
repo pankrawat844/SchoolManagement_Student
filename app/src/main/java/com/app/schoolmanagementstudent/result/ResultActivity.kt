@@ -1,6 +1,5 @@
 package com.app.schoolmanagementstudent.result
 
-import android.app.DatePickerDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -28,8 +27,6 @@ import kotlinx.android.synthetic.main.bottomsheet_result.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
-import java.text.SimpleDateFormat
-import java.util.*
 
 class ResultActivity : AppCompatActivity(), KodeinAware, ResultListener {
     override val kodein by kodein()
@@ -59,32 +56,12 @@ class ResultActivity : AppCompatActivity(), KodeinAware, ResultListener {
             if (bottomSheetBehavior.state == BottomSheetBehavior.STATE_EXPANDED) {
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             }
-            date.text = ""
+            date1.text = ""
             roll_no.text = ""
             max_marks.text = ""
             marks_obtained.text = ""
         }
-        date.text = SimpleDateFormat("dd/MM/yyyy").format(System.currentTimeMillis())
-        var cal = Calendar.getInstance()
 
-        val dateSetListener =
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                val myFormat = "dd/MM/yyyy"
-                val sdf = SimpleDateFormat(myFormat, Locale.US)
-                date.text = sdf.format(cal.time)
-
-            }
-        date.setOnClickListener {
-            DatePickerDialog(
-                this@ResultActivity, dateSetListener,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)
-            ).show()
-        }
         text_recyclerview.addOnItemTouchListener(
             RecyclerItemClickListenr(
                 this,
@@ -119,7 +96,7 @@ class ResultActivity : AppCompatActivity(), KodeinAware, ResultListener {
 
     override fun onSuccess(data: Result) {
 //        name.setText(data.response?.testId!!)
-        date.text = data.response?.date
+        date1.text = data.response?.date
         roll_no.text = data.response?.rollNo!!
         max_marks.text = data.response.maxMark!!
         marks_obtained.text = data.response.markObtain

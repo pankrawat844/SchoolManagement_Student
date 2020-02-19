@@ -89,7 +89,7 @@
         app:layout_constraintTop_toBottomOf="@+id/filter_rating">
 
         <TextView
-            android:id="@+id/date"
+            android:id="@+id/date1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rect_filter"
