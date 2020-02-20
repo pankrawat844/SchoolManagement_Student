@@ -16,7 +16,6 @@ import com.app.schoolmanagementstudent.attendance.AttendenceActivity
 import com.app.schoolmanagementstudent.businfo.BusInfoActivity
 import com.app.schoolmanagementstudent.complaint.ComplaintActivity
 import com.app.schoolmanagementstudent.event.EventActivity
-
 import com.app.schoolmanagementstudent.feeinfo.FeeInfoActivity
 import com.app.schoolmanagementstudent.gallery.GalleryActivity
 import com.app.schoolmanagementstudent.homework.HomeworkActivity
@@ -56,15 +55,18 @@ class HomeViewModel(val adminRepository: Repository, val studentRepository: Stud
     var section_list: Classes? = null
 
     fun onedit_profile(view: View) {
-
+        val sharedPreferences =
+            view1?.getSharedPreferences("app", 0)
         val viewGroup: ViewGroup = view1?.findViewById(android.R.id.content)!!
         var dialogView = LayoutInflater.from(view.context)
             .inflate(R.layout.dialog_edit_profile, viewGroup, false)
-        dialogView.name.setText(name)
-        dialogView.mobile_no.setText(mobile)
-        dialogView.password.setText(password)
+        dialogView.name.setText(sharedPreferences?.getString("name", "")!!)
+        dialogView.mobile_no.setText(sharedPreferences.getString("mobile", "")!!)
+        dialogView.password.setText(sharedPreferences.getString("password", "")!!)
         dialogView.buttonOk.setOnClickListener {
-            if (dialogView.name.toString().length == 0 || dialogView.mobile_no.toString().length == 0 || dialogView.password.toString().length == 0)
+            if (dialogView.name.toString().length == 0 || dialogView.mobile_no.toString()
+                    .length == 0 || dialogView.password.toString().length == 0
+            )
                 Toast.makeText(view1, "All fields are mandatory", Toast.LENGTH_SHORT).show()
             else {
                 CoroutineScope(Dispatchers.Main).launch {
@@ -94,10 +96,11 @@ class HomeViewModel(val adminRepository: Repository, val studentRepository: Stud
                                                 jsonObject.getString("message"),
                                                 Toast.LENGTH_SHORT
                                             ).show()
-                                            homeFragmentListener?.onDataChanged(dialogView.name.text.toString())
-                                            val sharedPreferences =
-                                                view1?.getSharedPreferences("app", 0)
-                                            sharedPreferences?.edit().also {
+                                            homeFragmentListener?.onDataChanged(
+                                                dialogView.name.text.toString()
+                                            )
+
+                                            sharedPreferences.edit().also {
                                                 it?.putString(
                                                     "name",
                                                     dialogView.name.text.toString()
@@ -141,8 +144,8 @@ class HomeViewModel(val adminRepository: Repository, val studentRepository: Stud
         }
         val alerdialog = AlertDialog.Builder(view1)
         alerdialog.setView(dialogView)
-        val dialog = alerdialog.create()
-        dialog.show()
+        dialog = alerdialog.create()
+        dialog?.show()
     }
 
     fun onHomeWorkClick(view: View) {
@@ -155,6 +158,7 @@ class HomeViewModel(val adminRepository: Repository, val studentRepository: Stud
         Intent(view.context, AttendenceActivity::class.java).also {
             view.context.startActivity(it)
         }
+
     }
 
     fun onNoticeClick(view: View) {
@@ -231,6 +235,46 @@ class HomeViewModel(val adminRepository: Repository, val studentRepository: Stud
         Intent(view.context, ComplaintActivity::class.java).also {
             view.context.startActivity(it)
         }
+    }
+
+
+    fun savedToken(token: String, id: String) {
+
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+
+                studentRepository.savedToken(
+                    token,
+                    id
+                )
+                    .enqueue(object : retrofit2.Callback<ResponseBody> {
+                        override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+
+                        }
+
+                        override fun onResponse(
+                            call: Call<ResponseBody>,
+                            response: retrofit2.Response<ResponseBody>
+                        ) {
+                            if (response.isSuccessful) {
+                                val json = JSONObject(response.body()?.string()!!)
+                                homeFragmentListener?.onError(json.getString("message"))
+                            } else {
+                                val json = JSONObject(response.errorBody()?.string()!!)
+
+                                homeFragmentListener?.onError(json.getString("message"))
+                            }
+
+                        }
+
+                    })
+            } catch (e: ApiException) {
+                homeFragmentListener?.onError(e.message!!)
+            } catch (e: NoInternetException) {
+                homeFragmentListener?.onError(e.message!!)
+            }
+        }
+
     }
 
     fun onGalleryClick(view: View) {

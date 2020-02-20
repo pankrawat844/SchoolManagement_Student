@@ -15,6 +15,7 @@ import com.app.schoolmanagementstudent.databinding.FragmentHomeBinding
 import com.app.schoolmanagementstudent.utils.hide
 import com.app.schoolmanagementstudent.utils.show
 import com.app.schoolmanagementstudent.utils.toast
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.fragment_home.*
 
 import org.kodein.di.KodeinAware
@@ -63,6 +64,16 @@ class HomeFragment : Fragment(), KodeinAware, HomeFragmentListener {
             }
 
         }, 100, 100)
+
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnSuccessListener { instanceIdResult ->
+                val deviceToken = instanceIdResult.token
+
+                homeViewModel.savedToken(
+                    deviceToken,
+                    sharedPreferences?.getString("student_id", "")!!
+                )
+            }
         return databind.root
     }
 

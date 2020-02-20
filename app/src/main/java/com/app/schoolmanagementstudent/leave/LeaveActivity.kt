@@ -21,6 +21,8 @@ import com.app.schoolmanagementstudent.utils.Constants
 import com.app.schoolmanagementstudent.utils.hide
 import com.app.schoolmanagementstudent.utils.show
 import com.app.schoolmanagementstudent.utils.toast
+import com.squareup.picasso.MemoryPolicy
+import com.squareup.picasso.NetworkPolicy
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_time_table.*
 import kotlinx.coroutines.CoroutineScope
@@ -107,7 +109,9 @@ class LeaveActivity : AppCompatActivity(), KodeinAware, LeaveListener,
             )
             pdfViewer.visibility = View.VISIBLE
         } else if (data.response?.isPdf == "0") {
-            Picasso.get().load(Constants.homework_url + data.response.imgPath).fit().into(imageView)
+            Picasso.get().load(Constants.homework_url + data.response.imgPath).fit()
+                .networkPolicy(NetworkPolicy.NO_CACHE).memoryPolicy(MemoryPolicy.NO_CACHE)
+                .into(imageView)
             imageView.visibility = View.VISIBLE
         }
     }

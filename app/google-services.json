@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1088730190586",
+    "firebase_url": "https://schoolmanagementstudent.firebaseio.com",
+    "project_id": "schoolmanagementstudent",
+    "storage_bucket": "schoolmanagementstudent.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1088730190586:android:25335dd72e22a900c52f43",
+        "android_client_info": {
+          "package_name": "com.app.schoolmanagementstudent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1088730190586-fqrrden438sfgm6gq5bliddpl3ec56gj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpjaRSOFPO1JUnrUPJsnpDVKm2TRw0bQc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1088730190586-fqrrden438sfgm6gq5bliddpl3ec56gj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

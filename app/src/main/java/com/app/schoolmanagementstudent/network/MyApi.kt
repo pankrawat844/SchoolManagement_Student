@@ -78,6 +78,12 @@ interface MyApi {
         @Field("password") password: String
     ): Call<ResponseBody>
 
+    @FormUrlEncoded
+    @POST("saved_token.php")
+    fun saved_token(
+        @Field("token") token: String,
+        @Field("student_id") id: String
+    ): Call<ResponseBody>
 
     @FormUrlEncoded
     @POST("teacher_login.php")

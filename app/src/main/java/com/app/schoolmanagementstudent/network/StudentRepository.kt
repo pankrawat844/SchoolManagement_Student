@@ -25,6 +25,13 @@ class StudentRepository(val api: MyApi) : SafeApiRequest() {
         return api.edit_profile(student_id, name, mobile, password)
     }
 
+    suspend fun savedToken(
+        token: String,
+        id: String
+    ): Call<ResponseBody> {
+        return api.saved_token(token, id)
+    }
+
     suspend fun uploadTimetable(
         @Part("class_name") class_id: RequestBody,
         @Part("section_name") section_name: RequestBody,
