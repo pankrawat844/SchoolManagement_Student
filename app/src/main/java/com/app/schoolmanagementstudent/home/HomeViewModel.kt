@@ -258,11 +258,11 @@ class HomeViewModel(val adminRepository: Repository, val studentRepository: Stud
                         ) {
                             if (response.isSuccessful) {
                                 val json = JSONObject(response.body()?.string()!!)
-                                homeFragmentListener?.onError(json.getString("message"))
+//                                homeFragmentListener?.onError(json.getString("message"))
                             } else {
                                 val json = JSONObject(response.errorBody()?.string()!!)
 
-                                homeFragmentListener?.onError(json.getString("message"))
+//                                homeFragmentListener?.onError(json.getString("message"))
                             }
 
                         }

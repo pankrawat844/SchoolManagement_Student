@@ -65,6 +65,8 @@ class StudentLoginActivity : AppCompatActivity(), StudentLoginListener, KodeinAw
             it.putString("roll_no", student.rollNo)
             it.putString("gender", student.gender)
             it.putString("address", student.address)
+            it.putString("mobile", student.mobile)
+            it.putString("password", student.password)
             it.commit()
         }
         Intent(this, HomeActivity::class.java).also {

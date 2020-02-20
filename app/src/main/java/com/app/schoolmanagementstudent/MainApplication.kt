@@ -18,8 +18,6 @@ import com.app.schoolmanagementstudent.homework.HomeworkViewmodel
 import com.app.schoolmanagementstudent.homework.HomeworkViewmodelFactory
 import com.app.schoolmanagementstudent.leave.LeaveViewmodel
 import com.app.schoolmanagementstudent.leave.LeaveViewmodelFactory
-import com.app.schoolmanagementstudent.login.LoginViewmodel
-import com.app.schoolmanagementstudent.login.LoginViewmodelFactory
 import com.app.schoolmanagementstudent.login.schoollogin.SchoolLoginVIewModelFactory
 import com.app.schoolmanagementstudent.login.schoollogin.SchoolLoginViewModel
 import com.app.schoolmanagementstudent.login.studentlogin.StudentLoginViewModel
@@ -52,8 +50,6 @@ class MainApplication : Application(), KodeinAware {
     override val kodein = Kodein.lazy {
         bind() from singleton { MyApi() }
         bind() from singleton { Repository(instance()) }
-        bind() from singleton { LoginViewmodelFactory(instance()) }
-        bind() from singleton { LoginViewmodel(instance()) }
 
         bind() from singleton { HomeViewModelFactory(instance(), instance()) }
         bind() from singleton { HomeViewModel(instance(), instance()) }

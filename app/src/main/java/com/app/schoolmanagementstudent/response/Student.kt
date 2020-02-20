@@ -31,6 +31,8 @@ data class Student(
         @SerializedName("student_id")
         val studentId: String?,
         @SerializedName("class_id")
-        val class_id: String?
+        val class_id: String?,
+        @SerializedName("mobile")
+        val mobile: String?
     )
 }
