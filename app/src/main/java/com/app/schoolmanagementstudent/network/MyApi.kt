@@ -121,7 +121,8 @@ interface MyApi {
     @FormUrlEncoded
     @POST("notice_list.php")
     fun all_notice(
-        @Field("class_id") incharge_id: String
+        @Field("class_id") incharge_id: String,
+        @Field("roll_no") roll_no: String
 
     ): Call<NoticeList>
 

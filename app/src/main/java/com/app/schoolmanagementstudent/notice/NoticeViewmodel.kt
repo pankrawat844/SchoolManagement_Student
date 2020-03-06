@@ -49,20 +49,20 @@ class NoticeViewmodel(val repository: Repository):ViewModel() {
 
     }
 
-    fun allNotice( incharge_id: String){
+    fun allNotice(incharge_id: String, roll_no: String) {
         noticeListener?.onStarted()
         CoroutineScope(Dispatchers.Main).launch {
-            repository.allNotice(incharge_id).enqueue(object:Callback<NoticeList>{
+            repository.allNotice(incharge_id, roll_no).enqueue(object : Callback<NoticeList> {
                 override fun onFailure(call: Call<NoticeList>, t: Throwable) {
-                noticeListener?.onFailure(t.message!!)
+                    noticeListener?.onFailure(t.message!!)
                 }
 
                 override fun onResponse(
                     call: Call<NoticeList>,
                     response: Response<NoticeList>
                 ) {
-                    if(response.isSuccessful)
-                    noticeListener?.onAllNoticeSuccess(response.body()!!)
+                    if (response.isSuccessful)
+                        noticeListener?.onAllNoticeSuccess(response.body()!!)
                     else
                         noticeListener?.onFailure(JSONObject(response.errorBody()?.string()).getString("message"))
 //                            Log.e("error",response.errorBody()?.string())

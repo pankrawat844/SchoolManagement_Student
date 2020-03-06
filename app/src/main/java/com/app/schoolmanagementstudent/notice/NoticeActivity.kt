@@ -40,7 +40,10 @@ class NoticeActivity : AppCompatActivity(),KodeinAware,NoticeListener {
         sharedPreferences = getSharedPreferences("app", Context.MODE_PRIVATE)
         viewmodel.noticeListener = this
         databinding.viewmodel = viewmodel
-        viewmodel.allNotice(sharedPreferences?.getString("class_id", "")!!)
+        viewmodel.allNotice(
+            sharedPreferences?.getString("class_id", "")!!,
+            sharedPreferences?.getString("roll_no", "")!!
+        )
         val bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_notice)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         menu.setOnClickListener {

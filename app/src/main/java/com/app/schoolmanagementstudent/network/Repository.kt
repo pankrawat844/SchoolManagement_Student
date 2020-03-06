@@ -47,8 +47,8 @@ class Repository(val myApi: MyApi):SafeApiRequest() {
         return myApi.add_notice(incharge_id, title, notice)
     }
 
-    suspend fun allNotice(incharge_id: String): Call<NoticeList> {
-        return myApi.all_notice(incharge_id)
+    suspend fun allNotice(incharge_id: String, roll_no: String): Call<NoticeList> {
+        return myApi.all_notice(incharge_id, roll_no)
     }
 
     suspend fun addEvent(
